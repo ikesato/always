@@ -1,0 +1,14 @@
+#!/bin/sh
+
+CMD=$*
+$CMD &
+PID=$!
+while true ; do
+    if [ ! -d /proc/$PID ] ; then
+	echo "The program was unexpectedly shut down. But we always execute the program."
+	echo $CMD
+	$CMD &
+	PID=$!
+    fi
+    sleep 1
+done
